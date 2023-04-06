@@ -1,0 +1,66 @@
+@import 'variables';
+
+@mixin mobile-grid {
+
+//    I made my grid to only be 14, since i will be mostly showing rows i dont want the user to have to scroll left or right
+  $grid-count:14;
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    // there are 4 rows but only the middle 2 will be used to showcase a background color so it wont be too plain
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    background-color:$lightColor;
+  }
+   @for $i1 from 1 through $grid-count{
+    // this will help with only catchng the even "n" numbers
+
+/********************************************************************
+                             Bottom Row
+*********************************************************************/
+                
+     @if $i1 % 2 == 0{
+       .n#{$i1} {
+
+         grid-column: round($i1/2)/ span 1;
+        
+         grid-row: 3;
+
+        // I got the colors by seeing what the original darkest color of my selection will be, and then doing the math to make sure that it stays on the right color palette
+         background-color: 	rgb(($i1*1), ($i1*15), (($i1+1)*2));
+         border: 1px solid rgba(0, 0, 0, 0.8);
+         padding: 10px;
+         font-size: ($i1+$readingFont);
+         color:invert(rgb(($i1*5), $i1, (($i1+12)*2)));
+       }
+     }
+
+/********************************************************************
+                          End Bottom Row
+*********************************************************************/
+
+
+
+ /********************************************************************
+                             Top Row
+ *********************************************************************/
+     @else {
+      
+       .n#{$i1} {
+        // this will catch the rest of the numbers, which are odd since the last one would catch all the even ones
+         grid-column: round($i1/2)/ span 1;
+        
+         grid-row: 2;
+         background-color: 	rgb((($i1+50)*2), $i1, ($i1*10));
+         border: 1px solid rgba(0, 0, 0, 0.8);
+         padding: 10px;
+         font-size: ($i1+$readingFont);
+         color:invert(rgb((($i1+7)*2), $i1, ($i1*8)));
+       }
+ /********************************************************************
+                            End Top Row
+ *********************************************************************/
+
+     }
+   }
+  }
